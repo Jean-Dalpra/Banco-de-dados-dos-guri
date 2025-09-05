@@ -21,6 +21,7 @@ include_once 'connect.php';
             <nav class="row">
                 <div class="col-12">
                 <ul class="row">
+                 <ul class="row">
               <?php
               $sql = "SELECT * FROM categorias";
               $result = mysqli_query($conn, $sql);
@@ -36,14 +37,23 @@ include_once 'connect.php';
         <main class="col-12">
             <div class="row">
                 <div class="col-3">
-                    <h1 class="text-center" style="text-decoration:underline; padding: 10px; border-radius:10px; background-color: #8b48cf; margin-top: 42px; margin-left: 550px; width: 260px;">PRODUTOS</h1>
+                    <h1 class="text-center" style="text-decoration:underline; padding: 10px; border-radius:10px; background-color: #8b48cf; margin-top: 42px; margin-left: 550px; width: 260px;">
+                        <?php
+                        $id = intval($_GET['id']);
+                         $sql = "SELECT * FROM categorias WHERE ID = $id";
+                         $result = mysqli_query($conn, $sql);
+                         while($row = mysqli_fetch_assoc($result)){
+                            echo $row['Nome'];
+                         }
+                         ?>
+                    </h1>
                 </div>
             </div>
             <div class="row">
                <ul class="col-12">
                 <div class="row">
                     <?php
-                    $sql = "SELECT * FROM produtos";
+                    $sql = "SELECT * FROM produtos WHERE CategoriaID = $id ";
                     $result = mysqli_query($conn, $sql);
                     while($row = mysqli_fetch_assoc($result)){
                        echo '<li class="col-4" style="padding: 10px; border: 6px solid #150129; border-radius:10px; margin-top: 19px; list-style-type: none; width: 430px; margin-left: 20px; background-color: #8b48cf;">
